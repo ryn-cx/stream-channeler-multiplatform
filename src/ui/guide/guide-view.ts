@@ -381,6 +381,7 @@ export class GuideView implements AppView, GuideGridListener {
   // TODO: Validate
   private guideRowFor(channel: GuideChannel, isCurrentChannelRow: boolean): GuideRow {
     const guideRepository = this.app.guideRepository;
+    const preferences = this.app.preferences;
     const runningChannelAction = guideRepository.runningChannelAction(channel.id);
     let channelStatusText: string | null = null;
     switch (runningChannelAction ?? guideRepository.failedChannelAction(channel.id)) {
@@ -399,7 +400,18 @@ export class GuideView implements AppView, GuideGridListener {
     }
     return {
       channel,
-      scheduledVideos: scheduleChannelVideos(channel.videos, this.app.preferences.minimumVideoMinutes),
+      scheduledVideos: scheduleChannelVideos(
+        channel.videos,
+        preferences.minimumVideoMinutes,
+        preferences.sizesGuideVideosByText
+          ? (video) =>
+              this.guideGridView.videoTextFittingMinutes(
+                video,
+                preferences.showsCondensedGuide,
+                preferences.showsGuideSourceLogos,
+              )
+          : null,
+      ),
       isCurrentChannelRow,
       isFavorite: guideRepository.favoriteChannelIds.has(channel.id),
       channelStatusText,

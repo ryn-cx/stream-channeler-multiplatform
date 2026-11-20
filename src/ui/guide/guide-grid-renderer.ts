@@ -1,5 +1,5 @@
 // TODO: Validate
-import { formatChannelNumber } from "../../data/models";
+import { formatChannelNumber, type GuideVideo } from "../../data/models";
 import { type ImageLoader, imageHeight, imageWidth, type LoadedImage } from "../common/image-loader";
 import { UiColors } from "../common/ui";
 import { channelLogoNeedsLightBackground } from "./channel-logo-background";
@@ -64,6 +64,26 @@ export class GuideGridRenderer {
   // TODO: Validate
   private font(sizeSp: number, isBold: boolean): string {
     return `${isBold ? "bold " : ""}${this.metrics.dp(sizeSp)}px system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif`;
+  }
+
+  // TODO: Validate
+  /**
+   * Returns how many minutes wide video's cell must be to show its title and subtitle in full, using the same fonts,
+   * padding and website logo as drawVideoCell.
+   */
+  videoTextFittingMinutes(video: GuideVideo, isCondensed: boolean, showsSourceLogos: boolean): number {
+    const canvasContext = this.drawingContext;
+    canvasContext.font = this.font(14, true);
+    let widestTextWidth = canvasContext.measureText(video.title ?? "").width;
+    if (!isCondensed) {
+      canvasContext.font = this.font(12, false);
+      widestTextWidth = Math.max(widestTextWidth, canvasContext.measureText(video.subtitle).width);
+    }
+    const faviconWidth =
+      showsSourceLogos && video.faviconUrl !== null ? this.metrics.dp(20) + this.metrics.cellPaddingPx * 0.75 : 0;
+    // The extra pixel is the cell's right border.
+    const cellWidth = this.metrics.cellPaddingPx * 2 + faviconWidth + widestTextWidth + 1;
+    return Math.max(1, Math.ceil(cellWidth / this.metrics.pixelsPerMinute));
   }
 
   // TODO: Validate

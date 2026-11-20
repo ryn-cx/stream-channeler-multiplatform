@@ -13,8 +13,10 @@ module.exports = {
   supportURL: "https://github.com/ryn-cx/stream-channeler-multiplatform/issues",
   // The release workflow attaches the built userscript to each GitHub release, so these addresses always serve the
   // newest release and installed copies update from them.
-  updateURL: "https://github.com/ryn-cx/stream-channeler-multiplatform/releases/latest/download/stream-channeler.user.js",
-  downloadURL: "https://github.com/ryn-cx/stream-channeler-multiplatform/releases/latest/download/stream-channeler.user.js",
+  updateURL:
+    "https://github.com/ryn-cx/stream-channeler-multiplatform/releases/latest/download/stream-channeler.user.js",
+  downloadURL:
+    "https://github.com/ryn-cx/stream-channeler-multiplatform/releases/latest/download/stream-channeler.user.js",
   icon: "https://streamchanneler.com/assets/images/stream-channeler-icon.png",
   match: [
     "https://streamchanneler.com/*",

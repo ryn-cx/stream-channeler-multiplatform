@@ -17,7 +17,7 @@ import {
   type SignedInUser,
 } from "./models";
 
-export const DEFAULT_MINIMUM_VIDEO_MINUTES = 15;
+export const DEFAULT_MINIMUM_VIDEO_MINUTES = 0;
 export const DEFAULT_GUIDE_DETAILS_HEIGHT_PERCENT = 15;
 export const DEFAULT_ZOOM_PERCENT = 100;
 
@@ -39,6 +39,7 @@ interface StoredValues {
   showsUpNextInformation: boolean;
   showsCondensedGuide: boolean;
   showsGuideSourceLogos: boolean;
+  sizesGuideVideosByText: boolean;
   minimumVideoMinutes: number;
   guideDetailsHeightPercent: number;
   zoomPercent: number;
@@ -72,6 +73,7 @@ const DEFAULT_STORED_VALUES: StoredValues = {
   showsUpNextInformation: false,
   showsCondensedGuide: false,
   showsGuideSourceLogos: true,
+  sizesGuideVideosByText: false,
   minimumVideoMinutes: DEFAULT_MINIMUM_VIDEO_MINUTES,
   guideDetailsHeightPercent: DEFAULT_GUIDE_DETAILS_HEIGHT_PERCENT,
   zoomPercent: DEFAULT_ZOOM_PERCENT,
@@ -296,6 +298,16 @@ export class LocalAppStorage {
   // TODO: Validate
   set showsGuideSourceLogos(showsGuideSourceLogos: boolean) {
     void this.write({ showsGuideSourceLogos });
+  }
+
+  // TODO: Validate
+  get sizesGuideVideosByText(): boolean {
+    return this.storedValues.sizesGuideVideosByText;
+  }
+
+  // TODO: Validate
+  set sizesGuideVideosByText(sizesGuideVideosByText: boolean) {
+    void this.write({ sizesGuideVideosByText });
   }
 
   // TODO: Validate

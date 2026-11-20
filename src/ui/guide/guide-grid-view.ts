@@ -1,4 +1,5 @@
 // TODO: Validate
+import type { GuideVideo } from "../../data/models";
 import type { ImageLoader } from "../common/image-loader";
 import type { RemoteAction } from "../common/remote-input";
 import {
@@ -138,6 +139,11 @@ export class GuideGridView {
     if (this.showsSourceLogosValue === showsSourceLogos) return;
     this.showsSourceLogosValue = showsSourceLogos;
     this.invalidate();
+  }
+
+  // TODO: Validate
+  videoTextFittingMinutes(video: GuideVideo, isCondensed: boolean, showsSourceLogos: boolean): number {
+    return this.renderer.videoTextFittingMinutes(video, isCondensed, showsSourceLogos);
   }
 
   // TODO: Validate

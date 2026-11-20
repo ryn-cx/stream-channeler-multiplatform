@@ -55,6 +55,7 @@ export class SettingsView implements AppView {
   private readonly condensedGuideButton: HTMLButtonElement;
   private readonly minimumVideoMinutesInput: HTMLInputElement;
   private readonly guideSourceLogosButton: HTMLButtonElement;
+  private readonly guideVideosSizedByTextButton: HTMLButtonElement;
   private readonly guideDetailsHeightInput: HTMLInputElement;
   private readonly zoomInput: HTMLInputElement;
   private readonly accountButton: HTMLButtonElement;
@@ -96,7 +97,7 @@ export class SettingsView implements AppView {
     this.markFinishedVideosCompletedButton = settingButton(() => this.toggleMarkFinishedVideosCompleted());
     this.condensedGuideButton = settingButton(() => this.toggleCondensedGuide());
     this.minimumVideoMinutesInput = numberSettingInput(
-      1,
+      0,
       120,
       DEFAULT_MINIMUM_VIDEO_MINUTES,
       (enteredMinimumVideoMinutes) => {
@@ -105,6 +106,7 @@ export class SettingsView implements AppView {
       },
     );
     this.guideSourceLogosButton = settingButton(() => this.toggleGuideSourceLogos());
+    this.guideVideosSizedByTextButton = settingButton(() => this.toggleGuideVideosSizedByText());
     this.guideDetailsHeightInput = numberSettingInput(
       5,
       60,
@@ -150,8 +152,9 @@ export class SettingsView implements AppView {
       sectionHeading("Guide"),
       this.condensedGuideButton,
       this.guideSourceLogosButton,
+      this.guideVideosSizedByTextButton,
       numberSettingRow(
-        `Stretch videos shorter than this many minutes so their titles fit in the guide (default ${DEFAULT_MINIMUM_VIDEO_MINUTES})`,
+        `Stretch videos shorter than this many minutes so their titles fit in the guide (0 turns it off, default ${DEFAULT_MINIMUM_VIDEO_MINUTES})`,
         this.minimumVideoMinutesInput,
       ),
       numberSettingRow(
@@ -708,6 +711,11 @@ export class SettingsView implements AppView {
       preferences.marksFinishedVideosCompleted,
     );
     writeSwitchSettingRow(this.guideSourceLogosButton, "Website logos on videos", preferences.showsGuideSourceLogos);
+    writeSwitchSettingRow(
+      this.guideVideosSizedByTextButton,
+      "Size videos in the guide to fit their text instead of their length",
+      preferences.sizesGuideVideosByText,
+    );
     writeNumberInputValue(this.minimumVideoMinutesInput, preferences.minimumVideoMinutes);
     writeNumberInputValue(this.guideDetailsHeightInput, preferences.guideDetailsHeightPercent);
     writeNumberInputValue(this.zoomInput, preferences.zoomPercent);
@@ -758,6 +766,12 @@ export class SettingsView implements AppView {
   // TODO: Validate
   private toggleGuideSourceLogos(): void {
     this.app.preferences.showsGuideSourceLogos = !this.app.preferences.showsGuideSourceLogos;
+    this.renderSettings();
+  }
+
+  // TODO: Validate
+  private toggleGuideVideosSizedByText(): void {
+    this.app.preferences.sizesGuideVideosByText = !this.app.preferences.sizesGuideVideosByText;
     this.renderSettings();
   }
 
