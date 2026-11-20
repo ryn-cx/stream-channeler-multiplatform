@@ -1,0 +1,23 @@
+// TODO: Validate
+module.exports = [
+  "netflix.com",
+  "youtube.com",
+  "youtu.be",
+  "primevideo.com",
+  "amazon.com",
+  "hulu.com",
+  "disneyplus.com",
+  "hbomax.com",
+  "max.com",
+  "tubitv.com",
+  "pluto.tv",
+  "peacocktv.com",
+  "paramountplus.com",
+  "crunchyroll.com",
+  "hidive.com",
+  "therokuchannel.roku.com",
+  "roku.com",
+  "pbs.org",
+  "nhk.or.jp",
+  "archive.org",
+];

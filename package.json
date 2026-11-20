@@ -1,0 +1,42 @@
+{
+  "name": "stream-channeler-multiplatform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Watch your Stream Channeler channels in the browser, with a program guide that plays the next episode for you.",
+  "license": "AGPL-3.0-only",
+  "author": "ryn-cx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryn-cx/stream-channeler-multiplatform.git"
+  },
+  "engines": {
+    "node": "^22.18.0 || ^24.0.0 || >=26.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "webpack --config config/webpack.config.prod.cjs",
+    "dev": "webpack --config config/webpack.config.dev.cjs",
+    "analyze": "cross-env npm_config_report=true npm run build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "biome check ./src ./test ./config"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@types/tampermonkey": "^5.5.0",
+    "cross-env": "^10.1.0",
+    "css-loader": "^7.1.5",
+    "esbuild-loader": "^4.5.0",
+    "typescript": "^7.0.2",
+    "userscript-metadata-webpack-plugin": "^0.4.2",
+    "vitest": "^5.1.0",
+    "webpack": "^5.112.2",
+    "webpack-bundle-analyzer": "^5.4.2",
+    "webpack-cli": "^7.3.1",
+    "webpack-livereload-plugin": "^3.0.2",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "@trim21/gm-fetch": "^0.3.0"
+  }
+}

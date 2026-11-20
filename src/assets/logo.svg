@@ -1,0 +1,45 @@
+<!-- TODO: Validate -->
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="230" viewBox="0 0 224 230">
+  <defs>
+    <linearGradient id="left-antenna" gradientUnits="userSpaceOnUse" x1="68" y1="12" x2="112" y2="56">
+      <stop offset="0" stop-color="#12A596" />
+      <stop offset="0.6" stop-color="#0D8E82" />
+      <stop offset="1" stop-color="#0B7A70" />
+    </linearGradient>
+    <linearGradient id="right-antenna" gradientUnits="userSpaceOnUse" x1="112" y1="14" x2="155" y2="56">
+      <stop offset="0" stop-color="#12A596" />
+      <stop offset="0.6" stop-color="#0D8E82" />
+      <stop offset="1" stop-color="#0B7A70" />
+    </linearGradient>
+    <linearGradient id="antenna-base" gradientUnits="userSpaceOnUse" x1="84" y1="50" x2="140" y2="62">
+      <stop offset="0" stop-color="#12A596" />
+      <stop offset="0.6" stop-color="#0D8E82" />
+      <stop offset="1" stop-color="#0B7A70" />
+    </linearGradient>
+    <linearGradient id="television-body" gradientUnits="userSpaceOnUse" x1="4" y1="58" x2="226" y2="216">
+      <stop offset="0" stop-color="#12A596" />
+      <stop offset="0.6" stop-color="#0D8E82" />
+      <stop offset="1" stop-color="#0B7A70" />
+    </linearGradient>
+    <clipPath id="television-screen">
+      <path d="M48,78H182A26,26 0 0,1 208,104V172A26,26 0 0,1 182,198H48A26,26 0 0,1 22,172V104A26,26 0 0,1 48,78Z" />
+    </clipPath>
+  </defs>
+  <g transform="translate(-2,-2)">
+    <path d="M112,56L68,12" stroke="url(#left-antenna)" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path d="M112,56L155,14" stroke="url(#right-antenna)" stroke-width="8" stroke-linecap="round" fill="none" />
+    <path fill="#0D8A7F" d="M58,10a8,8 0 1,0 16,0a8,8 0 1,0 -16,0z" />
+    <path fill="#0D8A7F" d="M149,12a8,8 0 1,0 16,0a8,8 0 1,0 -16,0z" />
+    <path fill="url(#antenna-base)" d="M84,62Q112,38 140,62Z" />
+    <path fill="#0C8378" d="M38,200L28,232L48,232L62,205Z" />
+    <path fill="#0C8378" d="M192,200L202,232L182,232L168,205Z" />
+    <path fill="url(#television-body)" d="M44,58H186A40,40 0 0,1 226,98V176A40,40 0 0,1 186,216H44A40,40 0 0,1 4,176V98A40,40 0 0,1 44,58Z" />
+    <path fill="#F1E2C3" d="M48,78H182A26,26 0 0,1 208,104V172A26,26 0 0,1 182,198H48A26,26 0 0,1 22,172V104A26,26 0 0,1 48,78Z" />
+    <g clip-path="url(#television-screen)" fill="none" stroke-width="16.5">
+      <path d="M10,108C55,92 90,132 135,124S195,92 220,100" stroke="#DD4E2E" />
+      <path d="M10,124C55,108 90,148 135,140S195,108 220,116" stroke="#EAA944" />
+      <path d="M10,140C55,124 90,164 135,156S195,124 220,132" stroke="#38857B" />
+    </g>
+    <path fill="none" stroke="#0B7A70" stroke-opacity="0.5" stroke-width="3" d="M48,78H182A26,26 0 0,1 208,104V172A26,26 0 0,1 182,198H48A26,26 0 0,1 22,172V104A26,26 0 0,1 48,78Z" />
+  </g>
+</svg>

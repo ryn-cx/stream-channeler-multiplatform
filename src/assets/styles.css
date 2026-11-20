@@ -1,0 +1,702 @@
+/* TODO: Validate */
+:root {
+  color-scheme: dark;
+  --background: #0a0a0a;
+  --surface: #171717;
+  --surface-raised: #222222;
+  --header: #262626;
+  --border: #303030;
+  --text: #fafafa;
+  --text-secondary: #d4d4d4;
+  --text-muted: #a3a3a3;
+  --accent: #14b8a6;
+  --on-accent: #042f2e;
+  --star: #facc15;
+  --error: #f87171;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--background);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+#app {
+  height: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.action-button {
+  min-height: 2.5rem;
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9375rem;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  border-color: var(--accent);
+}
+
+.action-button.is-activated {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.action-button:focus,
+.action-button:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: -2px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.text-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.text-input::placeholder {
+  color: var(--text-muted);
+}
+
+.text-input:focus {
+  outline: none;
+  border: 2px solid var(--accent);
+  padding: calc(0.5rem - 1px) calc(0.75rem - 1px);
+}
+
+.guide-screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.guide-top-section {
+  /*
+   * The height setting is a percentage of the window's height for the whole section. The thumbnail gets that height
+   * minus the panel's top and bottom padding, and never less than 3rem.
+   */
+  --guide-details-height: max(3rem, calc(var(--guide-details-height-percent, 15) * 1vh - 1.75rem));
+  display: flex;
+  flex: 0 0 auto;
+  min-height: 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-panel {
+  display: flex;
+  flex: 0 0 58%;
+  min-width: 0;
+  /* Keeps the top section as tall as the thumbnail and its padding while no thumbnail is shown. */
+  min-height: calc(var(--guide-details-height) + 1.75rem);
+  padding: 1rem 1rem 0.75rem 1.25rem;
+}
+
+.detail-thumbnail {
+  flex: 0 0 auto;
+  width: calc(var(--guide-details-height) * 16 / 9);
+  height: var(--guide-details-height);
+  margin-right: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--surface);
+  object-fit: cover;
+}
+
+.detail-info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.detail-channel-name {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.detail-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 1.1875rem;
+  font-weight: bold;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.favorite-star {
+  color: var(--star);
+}
+
+.detail-subtitle {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.detail-timing,
+.detail-source {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.detail-source-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-source-favicon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.detail-action-hint {
+  margin-top: 0.25rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.status-panel {
+  display: flex;
+  flex: 0 0 42%;
+  /* A long description does not make the top section taller. It scrolls inside the detail panel's height instead. */
+  contain: size;
+  flex-direction: column;
+  gap: 0.375rem;
+  min-width: 0;
+  padding: 1rem 1.25rem 0.75rem 1rem;
+  overflow: hidden;
+}
+
+.detail-description {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  scrollbar-width: thin;
+}
+
+.guide-toolbar {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 1rem 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.search-input {
+  flex: 0 0 16.25rem;
+}
+
+.guide-grid {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  outline: none;
+  touch-action: none;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: min(36rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  overflow-y: auto;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.dialog-message {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  white-space: pre-line;
+}
+
+.dialog-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.dialog-menu-item {
+  text-align: left;
+  white-space: normal;
+}
+
+.dialog-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.debug-information-page {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.875rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.625rem;
+  width: min(28.75rem, 100%);
+  margin: auto;
+  padding: 1.5rem 2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  text-align: center;
+}
+
+.login-logo {
+  width: 4.5rem;
+  height: 4.5rem;
+  align-self: center;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.login-subtitle,
+.login-password-heading {
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+}
+
+.login-password-heading {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.login-code-instructions {
+  font-size: 0.9375rem;
+}
+
+.login-verification-link {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.login-verification-link:focus {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.login-user-code {
+  color: var(--accent);
+  font-size: 2.125rem;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+}
+
+.login-status {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.login-status.is-error {
+  color: var(--error);
+}
+
+.settings-screen {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.settings-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: min(60rem, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.settings-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.settings-section-heading {
+  margin-top: 1rem;
+  color: var(--accent);
+  font-size: 0.8125rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.setting-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  white-space: normal;
+}
+
+.setting-row-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.setting-switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--border);
+  transition: background 0.15s;
+}
+
+.setting-switch::after {
+  position: absolute;
+  top: 0.1875rem;
+  left: 0.1875rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: var(--text-muted);
+  content: "";
+  transition:
+    transform 0.15s,
+    background 0.15s;
+}
+
+.setting-switch.is-on {
+  background: var(--accent);
+}
+
+.setting-switch.is-on::after {
+  background: var(--text);
+  transform: translateX(1.25rem);
+}
+
+/* A switch for several websites whose settings differ sits halfway. */
+.setting-switch.is-mixed::after {
+  transform: translateX(0.625rem);
+}
+
+/* A focused row turns the accent color, so its switch and boxes switch to the dark accent text color to stay visible. */
+.setting-button:focus .setting-switch {
+  background: rgba(4, 47, 46, 0.35);
+}
+
+.setting-button:focus .setting-switch.is-on {
+  background: var(--on-accent);
+}
+
+.setting-value {
+  flex: 0 1 auto;
+  padding: 0.25rem 0.625rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--background);
+  color: var(--text-secondary);
+}
+
+.setting-button:focus .setting-value {
+  border-color: var(--on-accent);
+  background: transparent;
+  color: inherit;
+}
+
+.setting-number-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  font-size: 0.9375rem;
+}
+
+.setting-number-input {
+  flex: 0 0 6rem;
+  width: 6rem;
+}
+
+.settings-tabs-and-panels {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.settings-tab-list {
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex: 0 0 12rem;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.settings-tab-favicon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.settings-tab-panel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* The panel's display: flex would otherwise override the hidden attribute. */
+.settings-tab-panel[hidden] {
+  display: none;
+}
+
+.settings-note,
+.settings-version {
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+}
+
+.settings-red-warning {
+  color: #ff2b2b;
+  font-weight: bold;
+}
+
+.all-websites-setting-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.all-websites-setting-row .setting-button {
+  flex: 1;
+}
+
+.setting-button-favicons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.setting-button-favicon {
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
+}
+
+.up-next-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 3rem;
+  background: var(--background);
+}
+
+.up-next-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.up-next-channel-name {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.up-next-videos-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.up-next-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  text-align: center;
+}
+
+.up-next-card-next {
+  width: 25rem;
+}
+
+.up-next-card-following {
+  width: 18rem;
+  margin-top: 0.625rem;
+}
+
+.up-next-heading {
+  font-weight: bold;
+}
+
+.up-next-card-next .up-next-heading {
+  color: var(--accent);
+  font-size: 1.875rem;
+}
+
+.up-next-card-following .up-next-heading {
+  color: var(--text-muted);
+  font-size: 1.375rem;
+}
+
+.up-next-thumbnail-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+}
+
+.up-next-thumbnail {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.up-next-title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-weight: bold;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* The Android app's up next labels are all at most two lines long. */
+.up-next-channel-name,
+.up-next-heading,
+.up-next-subtitle,
+.up-next-hint {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.up-next-card-next .up-next-title {
+  font-size: 1.875rem;
+}
+
+.up-next-card-following .up-next-title {
+  font-size: 1.375rem;
+}
+
+.up-next-subtitle {
+  color: var(--text-secondary);
+}
+
+.up-next-card-next .up-next-subtitle {
+  font-size: 1.21875rem;
+}
+
+.up-next-card-following .up-next-subtitle {
+  font-size: 0.89375rem;
+}
+
+.up-next-hint {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.up-next-button-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
